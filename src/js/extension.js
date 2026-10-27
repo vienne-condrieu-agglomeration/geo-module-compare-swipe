@@ -179,14 +179,27 @@ angular
         // ---- Fonds de plan GEO : descripteur → source OpenLayers ----
         var _wmtsCapsCache = {};
 
-        function _getDescriptor(bm) {
-            var all = geoApplication._baseLayers || {};
-            if (bm.descriptorId && all[bm.descriptorId]) { return all[bm.descriptorId]; }
+        // Fonds de plan ajoutés dans la partie carte : absents de `_baseLayers` (copie de
+        // `state.baseLayers`), leur descripteur est dans `state.resources`, avec la même forme.
+        function _mapResources() {
+            var store = geoApplication._map && geoApplication._map.store;
+            var state = store && store.getState ? store.getState() : null;
+            return (state && state.resources) || {};
+        }
+
+        function _findDescriptor(all, bm) {
+            if (bm.descriptorId && all[bm.descriptorId] && all[bm.descriptorId].connection) {
+                return all[bm.descriptorId];
+            }
             var found = null;
             Object.keys(all).forEach(function (k) {
-                if (!found && all[k] && all[k].name === bm.descriptorName) { found = all[k]; }
+                if (!found && all[k] && all[k].connection && all[k].name === bm.descriptorName) { found = all[k]; }
             });
             return found;
+        }
+
+        function _getDescriptor(bm) {
+            return _findDescriptor(geoApplication._baseLayers || {}, bm) || _findDescriptor(_mapResources(), bm);
         }
 
         function _capabilitiesUrl(serviceUrl) {
@@ -233,11 +246,13 @@ angular
         function _geoWmsSource(conn, descriptorId) {
             // WMS proxifié/authentifié : GEO expose un proxy par identifiant.
             var url = conn.proxyAccess ? ('services/aas/v1/wmsWrapper/proxy/' + descriptorId) : conn.url;
+            // Tableau dans `_baseLayers`, objet indexé ({0: …}) dans `state.resources`.
+            var layers = Object.values(conn.layers || {});
             return new window.ol.source.TileWMS({
                 url: url,
                 params: {
-                    LAYERS:      (conn.layers || []).map(function (l) { return l.layerName; }).join(','),
-                    STYLES:      (conn.layers || []).map(function (l) { return l.style || ''; }).join(','),
+                    LAYERS:      layers.map(function (l) { return l.layerName; }).join(','),
+                    STYLES:      layers.map(function (l) { return l.style || ''; }).join(','),
                     FORMAT:      conn.imageFormat || 'image/png',
                     TRANSPARENT: 'TRUE',
                     VERSION:     conn.version || '1.3.0'

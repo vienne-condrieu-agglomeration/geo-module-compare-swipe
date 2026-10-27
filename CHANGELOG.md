@@ -11,6 +11,12 @@ la plus récente publiée doit être celle de `package.json` et de `src/plugin.g
 
 ## [Non publié]
 
+### Corrigé
+
+- Fonds de plan GEO : un fond de plan ajouté dans la partie carte de l'application (et non dans Données → Fonds
+  de plan) était proposé dans les menus mais ne s'affichait pas une fois choisi. Il s'affiche désormais comme les
+  autres fonds de plan
+
 ## [0.3.1] — 2026-10-24
 
 ### Modifié
