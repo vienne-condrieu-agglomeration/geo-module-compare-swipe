@@ -1,5 +1,7 @@
 # geo-compare-swipe — Comparateur de rasters (rideau / loupe)
 
+![Aperçu : rideau puis loupe entre l'ortho IGN 1950-1965 et l'ortho IGN actuelle, port de La Cotinière (île d'Oléron)](docs/apercu.gif)
+
 Module GEO qui compare deux rasters (orthophotos IGN, flux WMS/WMTS/XYZ de la collectivité…)
 **directement sur la carte OpenLayers principale** de l'application, sans carte secondaire.
 Il s'appuie sur [ol-ext](https://github.com/Viglino/ol-ext) (Jean-Marc Viglino) :
