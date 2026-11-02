@@ -11,6 +11,8 @@ la plus récente publiée doit être celle de `package.json` et de `src/plugin.g
 
 ## [Non publié]
 
+## [0.3.2] — 2026-11-02
+
 ### Corrigé
 
 - Fonds de plan GEO : un fond de plan ajouté dans la partie carte de l'application (et non dans Données → Fonds
