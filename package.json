@@ -1,6 +1,6 @@
 {
   "name": "geo-compare-swipe",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Module GEO de comparaison de rasters (rideau et loupe) directement sur la carte principale, basé sur ol-ext",
   "main": "src/js/extension.js",
   "devDependencies": {

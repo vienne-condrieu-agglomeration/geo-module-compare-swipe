@@ -11,6 +11,12 @@ la plus récente publiée doit être celle de `package.json` et de `src/plugin.g
 
 ## [Non publié]
 
+## [0.3.3] — 2026-11-04
+
+### Corrigé
+
+- Générateur : le module a maintenant sa propre icône dans la liste des modules, à la place de l'icône par défaut
+
 ## [0.3.2] — 2026-11-02
 
 ### Corrigé
